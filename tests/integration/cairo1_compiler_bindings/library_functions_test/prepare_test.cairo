@@ -23,7 +23,7 @@ fn test_prepare() {
 #[test]
 fn test_prepare_no_args() {
    let mut arr = ArrayTrait::new();
-   match invoke(123, arr) {
+   match prepare(123, arr) {
       Result::Ok(class_hash) => (),
       Result::Err(x) => {
          let mut data = array_new::<felt>();
