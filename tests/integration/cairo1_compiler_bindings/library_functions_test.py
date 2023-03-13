@@ -114,6 +114,32 @@ def test_invoke(datadir: Path):
     )
 
 
+def test_prepare(datadir: Path):
+    expected_calldatas = {
+        "test_prepare": [101, 202, 303, 405, 508, 613, 721],
+        "test_prepare_no_args": [],
+    }
+
+    def _args_validator(
+        memory: MemoryDict, test_case_name: str, *args: Any, **kwargs: Any
+    ):
+        assert not args
+        class_hash = memory.data[kwargs["class_hash"][0]]
+        assert class_hash == 123
+        validate_calldata_arg(
+            start_name="calldata_start",
+            end_name="calldata_end",
+            memory=memory,
+            expected_calldata=expected_calldatas[test_case_name.split("::")[-1]],
+            *args,
+            **kwargs,
+        )
+
+    check_library_function(
+        "prepare", datadir / "prepare_test.cairo", args_validator=_args_validator
+    )
+
+
 def test_mock_call(datadir: Path):
     expected_calldatas = {
         "test_mock_call": [121, 122, 123, 124],
