@@ -11,11 +11,13 @@ fn test_prepare() {
    arr.append(613);
    arr.append(721);
    match prepare(123, arr) {
-      Result::Ok(class_hash) => (),
+      Result::Ok(prepared_contract) => {
+        drop(prepared_contract);
+      },
       Result::Err(x) => {
-         let mut data = array_new::<felt>();
-         array_append::<felt>(ref data, x);
-         panic(data)
+        let mut data = array_new::<felt>();
+        array_append::<felt>(ref data, x);
+        panic(data)
       },
    }
 }
@@ -24,11 +26,13 @@ fn test_prepare() {
 fn test_prepare_no_args() {
    let mut arr = ArrayTrait::new();
    match prepare(123, arr) {
-      Result::Ok(class_hash) => (),
+      Result::Ok(prepared_contract) => {
+        drop(prepared_contract);
+      },
       Result::Err(x) => {
-         let mut data = array_new::<felt>();
-         array_append::<felt>(ref data, x);
-         panic(data)
+        let mut data = array_new::<felt>();
+        array_append::<felt>(ref data, x);
+        panic(data)
       },
    }
 }
