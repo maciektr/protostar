@@ -30,7 +30,7 @@ def get_mock_for_lib_func(
             {
                 "constructor_calldata": [],
                 "contract_address": 0,
-                "class_hash": 0,
+                "return_class_hash": 0,
             },
         )()
         ok = type("ok", (object,), {"prepared_contract": prepared_contract})()
