@@ -23,6 +23,20 @@ def get_mock_for_lib_func(
         return_value = type(
             "return_value", (object,), {"err_code": err_code, "ok": ok}
         )()
+    elif lib_func_name == "prepare":
+        prepared_contract = type(
+            "prepared_contract",
+            (object,),
+            {
+                "constructor_calldata": [],
+                "contract_address": 0,
+                "class_hash": 0,
+            },
+        )()
+        ok = type("ok", (object,), {"prepared_contract": prepared_contract})()
+        return_value = type(
+            "return_value", (object,), {"err_code": err_code, "ok": ok}
+        )()
     else:
         return_value = type("return_value", (object,), {"err_code": err_code})()
 
