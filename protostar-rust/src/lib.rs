@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Context, Result};
+use anyhow::{Context, Result};
 use cairo_lang_protostar::test_collector::{collect_tests, LinkedLibrary};
 use cairo_lang_runner::{RunResultValue, SierraCasmRunner};
 use camino::{Utf8Path, Utf8PathBuf};
@@ -57,7 +57,7 @@ fn run_tests_in_file(
     let builtins = vec!["GasBuiltin", "Pedersen", "RangeCheck", "bitwise", "ec_op"];
 
     let (sierra_program, test_configs) =
-        collect_tests(input_path.as_str(), None, linked_libraries, Some(builtins))?;
+        collect_tests(input_path.as_str(), None, linked_libraries, Some(builtins), None)?;
 
     let runner =
         SierraCasmRunner::new(sierra_program, Some(Default::default()), Default::default())
