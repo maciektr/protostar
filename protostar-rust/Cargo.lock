@@ -814,6 +814,7 @@ dependencies = [
  "anyhow",
  "ark-ff 0.4.2",
  "ark-std 0.3.0",
+ "blockifier",
  "cairo-felt",
  "cairo-lang-casm 1.1.0",
  "cairo-lang-compiler 1.1.0",
@@ -821,6 +822,7 @@ dependencies = [
  "cairo-lang-diagnostics 1.1.0",
  "cairo-lang-filesystem 1.1.0",
  "cairo-lang-lowering 1.1.0",
+ "cairo-lang-project 1.1.0",
  "cairo-lang-semantic 1.1.0",
  "cairo-lang-sierra 1.1.0",
  "cairo-lang-sierra-ap-change 1.1.0",
@@ -837,6 +839,9 @@ dependencies = [
  "num-integer",
  "num-traits 0.2.15",
  "salsa",
+ "serde_json",
+ "smol_str",
+ "starknet_api",
  "thiserror",
 ]
 
@@ -2919,6 +2924,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "project-root"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8bccbff07d5ed689c4087d20d7307a52ab6141edeedf487c3876a55b86cf63df"
+
+[[package]]
 name = "quote"
 version = "1.0.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3137,6 +3148,7 @@ dependencies = [
  "camino",
  "clap",
  "itertools",
+ "project-root",
  "scarb-metadata",
  "serde",
  "serde_json",
