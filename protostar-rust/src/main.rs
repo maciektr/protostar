@@ -40,6 +40,7 @@ fn main_execution() -> Result<()> {
             Some(&dependencies),
             &protostar_config,
             Some(&corelib),
+            args.test_filter.as_deref(),
         )?;
     }
     Ok(())
