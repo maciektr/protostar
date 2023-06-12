@@ -364,6 +364,10 @@ version = \"0.1.0\"";
                 name: "crate2::run_other_thing".to_string(),
                 available_gas: None,
             },
+            TestConfig {
+                name: "outer::crate2::run_other_thing".to_string(),
+                available_gas: None,
+            },
         ];
 
         let filtered = filter_tests_by_name(None, mocked_tests.clone()).unwrap();
@@ -379,6 +383,10 @@ version = \"0.1.0\"";
             },
             TestConfig {
                 name: "crate2::run_other_thing".to_string(),
+                available_gas: None,
+            },
+            TestConfig {
+                name: "outer::crate2::execute_next_thing".to_string(),
                 available_gas: None,
             },
         ];
@@ -413,6 +421,10 @@ version = \"0.1.0\"";
                     name: "crate2::run_other_thing".to_string(),
                     available_gas: None,
                 },
+                TestConfig {
+                    name: "outer::crate2::execute_next_thing".to_string(),
+                    available_gas: None,
+                },
             ]
         );
 
@@ -431,6 +443,10 @@ version = \"0.1.0\"";
                     name: "crate2::run_other_thing".to_string(),
                     available_gas: None,
                 },
+                TestConfig {
+                    name: "outer::crate2::execute_next_thing".to_string(),
+                    available_gas: None,
+                },
             ]
         );
     }
@@ -444,6 +460,10 @@ version = \"0.1.0\"";
             },
             TestConfig {
                 name: "crate2::run_other_thing".to_string(),
+                available_gas: None,
+            },
+            TestConfig {
+                name: "outer::crate2::run_other_thing".to_string(),
                 available_gas: None,
             },
         ];
