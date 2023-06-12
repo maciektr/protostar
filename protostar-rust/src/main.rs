@@ -1,9 +1,9 @@
-use std::{env::set_var, collections::HashMap};
+use std::{collections::HashMap, env::set_var};
 
 use anyhow::{anyhow, Result};
+use cairo_lang_runner::ProtostarTestConfig;
 use camino::Utf8PathBuf;
 use clap::Parser;
-use cairo_lang_runner::ProtostarTestConfig;
 use scarb_metadata::{Metadata, MetadataCommand, PackageId};
 
 use cairo_lang_protostar::test_collector::LinkedLibrary;
@@ -16,7 +16,7 @@ use serde::Deserialize;
 pub struct ProtostarTestConfigForDeserialization {
     #[serde(default)]
     #[warn(dead_code)]
-    exit_first: bool
+    exit_first: bool,
 }
 
 #[derive(Parser, Debug)]
@@ -34,7 +34,8 @@ fn protostar_config_for_package(
         .tool_metadata("protostar")
         .ok_or_else(|| anyhow!("Failed to find protostar config for package = {package}"))?
         .clone();
-    let protostar_config: ProtostarTestConfigForDeserialization = serde_json::from_value(raw_metadata)?;
+    let protostar_config: ProtostarTestConfigForDeserialization =
+        serde_json::from_value(raw_metadata)?;
 
     Ok(protostar_config)
 }
@@ -76,18 +77,28 @@ fn dependencies_for_package(
 fn main_execution() -> Result<()> {
     let _args = Args::parse();
 
-    let project_root_path = project_root::get_project_root()?.to_str().expect("error reading project root path").to_owned();
+    let project_root_path = project_root::get_project_root()?
+        .to_str()
+        .expect("error reading project root path")
+        .to_owned();
     // TODO #1997
-    set_var("CARGO_MANIFEST_DIR", format!("{}/../cairo/Cargo.toml", project_root_path));
+    set_var(
+        "CARGO_MANIFEST_DIR",
+        format!("{}/../cairo/Cargo.toml", project_root_path),
+    );
 
     let scarb_metadata = MetadataCommand::new().inherit_stderr().exec()?;
 
-    let mut protostar_test_config = ProtostarTestConfig { contracts_paths: HashMap::new() };
+    let mut protostar_test_config = ProtostarTestConfig {
+        contracts_paths: HashMap::new(),
+    };
     for package in &scarb_metadata.packages {
         for target in &package.targets {
             if target.kind == "starknet-contract" {
                 // TODO consider multiple targets of this kind
-                protostar_test_config.contracts_paths.insert(target.name.clone(), target.source_path.to_string());
+                protostar_test_config
+                    .contracts_paths
+                    .insert(target.name.clone(), target.source_path.to_string());
             }
         }
     }

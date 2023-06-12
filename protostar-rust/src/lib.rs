@@ -1,6 +1,6 @@
 use anyhow::{Context, Result};
 use cairo_lang_protostar::test_collector::{collect_tests, LinkedLibrary};
-use cairo_lang_runner::{SierraCasmRunner, StarknetState, ProtostarTestConfig};
+use cairo_lang_runner::{ProtostarTestConfig, SierraCasmRunner, StarknetState};
 use std::collections::HashMap;
 
 use camino::{Utf8Path, Utf8PathBuf};
